@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.0.1 FATAL_ERROR)
 
 set(PROJECT_NAME SimpleEngine)
+project(SimpleEngine)
+
 
 add_subdirectory(SimpleEngineCore)
 add_subdirectory(SimpleEngineEditor)
