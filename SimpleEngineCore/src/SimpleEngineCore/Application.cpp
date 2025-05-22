@@ -13,12 +13,26 @@ namespace SimpleEngine {
 
 	int Application::start(unsigned int win_width, unsigned int win_height, const char* title) {
 		m_window = std::make_unique<Window>(title, win_width, win_height);
-		m_window->set_event_callback(
-			[](Event& event) {
-				LOG_INFO("[Event] Changed size to {0}x{1}", event.width, event.height);
+
+		m_event_dispatcher.add_event_listener<EventMouseMoved>(
+			[](EventMouseMoved& event) {
+				LOG_INFO("[MouseMoved] Mouse moved to {0}x{1}", event.x, event.y);
 			}
 		);
-		while (true) {
+
+		m_event_dispatcher.add_event_listener<EventWindowResize>(
+			[](EventWindowResize& event) {
+				LOG_INFO("[Resize] Changed size to {0}x{1}", event.width, event.height);
+			}
+		);
+
+		m_window->set_event_callback(
+			[&](BaseEvent& event) {
+				m_event_dispatcher.dispatch(event);
+			}
+		);
+
+		while (!m_bCloseWindow) {
 			m_window->on_update();
 			on_update();
 		}

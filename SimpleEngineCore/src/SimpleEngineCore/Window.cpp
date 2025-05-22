@@ -56,10 +56,16 @@ namespace SimpleEngine {
                 WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pwindow));
                 data.width = width;
                 data.height = height;
-                Event event;
-                event.width = width;
-                event.height = height;
 
+                EventWindowResize event(width, height);
+                data.eventCallbackFn(event);
+            }
+        );
+
+        glfwSetCursorPosCallback(m_window,
+            [](GLFWwindow* pwindow, double x, double y) {
+                WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pwindow));
+                EventMouseMoved event(x, y);
                 data.eventCallbackFn(event);
             }
         );

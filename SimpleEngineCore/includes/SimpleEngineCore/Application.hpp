@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "SimpleEngineCore/Event.hpp"
+
 namespace SimpleEngine {
 	class Application {
 	public:
@@ -20,6 +22,9 @@ namespace SimpleEngine {
 
 	private:
 		std::unique_ptr<class Window> m_window;
+
+		EventDispatcher m_event_dispatcher;
+		bool m_bCloseWindow = false;
 	};
 }
 
