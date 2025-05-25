@@ -26,6 +26,13 @@ namespace SimpleEngine {
 			}
 		);
 
+		m_event_dispatcher.add_event_listener<EventWindowClose>(
+			[&](EventWindowClose& event) {
+				LOG_INFO("[Window close]");
+				m_bCloseWindow = true;
+			}
+		);
+
 		m_window->set_event_callback(
 			[&](BaseEvent& event) {
 				m_event_dispatcher.dispatch(event);
@@ -36,6 +43,8 @@ namespace SimpleEngine {
 			m_window->on_update();
 			on_update();
 		}
+
+		m_window = nullptr;
 
 		return 0;
 	}

@@ -74,6 +74,14 @@ namespace SimpleEngine {
 		static const EventType type = EventType::WindowResize;
 	};
 
+	struct EventWindowClose : public BaseEvent {
+		virtual EventType get_type() const override {
+			return type;
+		}
+
+		static const EventType type = EventType::WindowClose;
+	};
+
 }
 
 
